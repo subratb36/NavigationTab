@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/screen_shotm"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"

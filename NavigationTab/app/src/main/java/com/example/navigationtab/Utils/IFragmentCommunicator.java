@@ -1,7 +1,7 @@
 package com.example.navigationtab.Utils;
 
 /**
- * Created by idigbo on 9/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public interface IFragmentCommunicator {
     public void homeScreen();

@@ -9,17 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.navigationtab.R;
-import com.example.navigationtab.Utils.IViewpagerCommunicator;
+import com.example.navigationtab.Utils.RecyclerViewOnItemClickListener;
 import com.example.navigationtab.Utils.VideoItemObject;
 
 import java.util.List;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public class VideoItemAdapter extends RecyclerView.Adapter<VideoItemAdapter.MyViewHolder> {
 
-    private IViewpagerCommunicator clickListener;
+    RecyclerViewOnItemClickListener clickListener;
     private List<VideoItemObject> listItemObject;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -37,17 +37,22 @@ public class VideoItemAdapter extends RecyclerView.Adapter<VideoItemAdapter.MyVi
         MyViewHolder myViewHolder=new MyViewHolder(view);
         return myViewHolder;
     }
-    public void setClickListener(IViewpagerCommunicator itemClickListener) {
-        this.clickListener = itemClickListener;
-    }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        VideoItemObject videoItemObject=listItemObject.get(position);
+        final VideoItemObject videoItemObject=listItemObject.get(position);
         holder.screenShot.setImageResource(videoItemObject.getScreenShot());
         holder.musicName.setText(videoItemObject.getMusicName());
         holder.musicAuthor.setText(videoItemObject.getMusicAuthor());
         holder.imageTime.setText(videoItemObject.getUploadHr());
         holder.upTime.setImageResource(videoItemObject.getUpTime());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onVideoItemClick(videoItemObject);
+            }
+        });
     }
 
     @Override
@@ -55,7 +60,12 @@ public class VideoItemAdapter extends RecyclerView.Adapter<VideoItemAdapter.MyVi
         return listItemObject.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public void SetOnItemClickListener(RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+        this.clickListener=recyclerViewOnItemClickListener;
+    }
+
+
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView screenShot;
         ImageView upTime;
@@ -70,10 +80,6 @@ public class VideoItemAdapter extends RecyclerView.Adapter<VideoItemAdapter.MyVi
             musicAuthor=(TextView)itemView.findViewById(R.id.musicAuthor_tv);
             imageTime=(TextView)itemView.findViewById(R.id.musicTime_tv);
         }
-        @Override
-        public void onClick(View view) {
-            if (clickListener != null)
-                clickListener.viewPagerCommunicate(view, getAdapterPosition());
-        }
+
     }
 }

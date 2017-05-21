@@ -3,27 +3,32 @@ package com.example.navigationtab.drawerFragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.navigationtab.Adapter.ImageItemAdapter;
 import com.example.navigationtab.Adapter.VideoItemAdapter;
 import com.example.navigationtab.R;
 import com.example.navigationtab.Utils.ImageItemObject;
+import com.example.navigationtab.Utils.RecyclerViewOnItemClickListener;
 import com.example.navigationtab.Utils.VideoItemObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public class ImageFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -51,9 +56,21 @@ public class ImageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         StaggeredGridLayoutManager gridLayoutManager=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setHasFixedSize(true);
         ImageItemAdapter imageItemAdapter=new ImageItemAdapter(getActivity(),list);
         recyclerView.setAdapter(imageItemAdapter);
+        imageItemAdapter.SetOnItemClickListener(new ImageItemAdapter.onItemClick() {
+
+            @Override
+            public void onImageItemClick(ImageItemObject imageItemObject) {
+                Log.i("OnItemClicked"," imageItemObject Name -  "+imageItemObject.getName());
+                Snackbar snackbar = Snackbar.make(recyclerView, imageItemObject.getName(), Snackbar.LENGTH_LONG);
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setBackgroundColor(Color.BLUE);
+                textView.setTextColor(Color.WHITE);
+                snackbar.show();
+            }
+        });
         recyclerView.setNestedScrollingEnabled(false);
 
     }

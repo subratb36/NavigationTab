@@ -8,5 +8,3 @@
     android:textColor="@drawable/selector_textcolor"
     android:textSize="15dp"
     />
-
-    <!--android:textColor="@drawable/selector_textcolor"-->

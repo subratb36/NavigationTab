@@ -36,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            custom:contentScrim="?attr/colorPrimary"
             custom:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
@@ -66,7 +65,6 @@
                 android:elevation="5dp"
                 custom:tabIndicatorColor="#F28705"
                 custom:tabIndicatorHeight="4dp"
-                custom:tabTextAppearance="@style/TextAppearance.Widget.TabWidget"
                 custom:tabSelectedTextColor="@color/two"
                 custom:tabTextColor="@color/dark_gray" />
         </android.support.design.widget.CollapsingToolbarLayout>

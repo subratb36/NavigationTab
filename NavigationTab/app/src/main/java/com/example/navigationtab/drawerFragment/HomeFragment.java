@@ -1,13 +1,9 @@
 package com.example.navigationtab.drawerFragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +15,13 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 import com.example.navigationtab.R;
-import com.example.navigationtab.Utils.IFragmentCommunicator;
-import com.example.navigationtab.Utils.IViewpagerCommunicator;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public class HomeFragment extends Fragment{
 
@@ -54,6 +46,11 @@ public class HomeFragment extends Fragment{
         imageSlider=(SliderLayout)view.findViewById(R.id.slider);
         tabLayout=(TabLayout)view.findViewById(R.id.tab_layout);
         viewPager=(ViewPager) view.findViewById(R.id.viewpager);
+
+        viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getSelectedTabPosition();
+        setupTabIcons();
 
         HashMap<String,Integer> file_maps = new HashMap<String,Integer>();
         file_maps.put("Big Bang Theory new album 2016",R.drawable.bigbang);
@@ -80,16 +77,6 @@ public class HomeFragment extends Fragment{
         imageSlider.setDuration(4000);
 
     }
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // Note that we are passing childFragmentManager, not FragmentManager
-        viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getSelectedTabPosition();
-        setupTabIcons();
-    }
 
     private void setupTabIcons() {
 
@@ -97,7 +84,6 @@ public class HomeFragment extends Fragment{
         tabOne.setText("Video");
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.selector_video, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
-
 
         TextView tabTwo = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.custom_tab, null);
         tabTwo.setText("Image");

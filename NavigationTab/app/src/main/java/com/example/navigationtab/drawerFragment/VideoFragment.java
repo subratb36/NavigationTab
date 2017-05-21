@@ -2,7 +2,6 @@ package com.example.navigationtab.drawerFragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,22 +17,21 @@ import android.widget.TextView;
 
 import com.example.navigationtab.Adapter.VideoItemAdapter;
 import com.example.navigationtab.R;
-import com.example.navigationtab.Utils.IViewpagerCommunicator;
+import com.example.navigationtab.Utils.RecyclerViewOnItemClickListener;
 import com.example.navigationtab.Utils.VideoItemObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
-public class VideoFragment extends Fragment implements IViewpagerCommunicator {
-
+public class VideoFragment extends Fragment{
+    private View view;
     private RecyclerView recyclerView;
     private Activity context;
-    private LinearLayoutManager llm;
-    List<VideoItemObject> list;
-    private View view;
+    private List<VideoItemObject> list;
+    private VideoItemAdapter videoItemAdapter;
     public VideoFragment(){
 
     }
@@ -52,24 +50,29 @@ public class VideoFragment extends Fragment implements IViewpagerCommunicator {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=(RecyclerView)view.findViewById(R.id.fragment_video_rv);
-        setUpRecycleView();
-    }
-
-    public void setUpRecycleView(){
         list=getAllVideoList();
-        VideoItemAdapter videoItemAdapter=new VideoItemAdapter(getActivity(),list);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(llm);
+        videoItemAdapter=new VideoItemAdapter(getActivity(),list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(videoItemAdapter);
-        videoItemAdapter.setClickListener((IViewpagerCommunicator) getActivity());
+        videoItemAdapter.SetOnItemClickListener(new RecyclerViewOnItemClickListener() {
+
+            @Override
+            public void onVideoItemClick(VideoItemObject videoItemObject) {
+                Log.i("OnItemClicked"," Berth Name -  "+videoItemObject.getMusicName());
+                Snackbar snackbar = Snackbar.make(recyclerView, videoItemObject.getMusicName(), Snackbar.LENGTH_LONG);
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setBackgroundColor(Color.GRAY);
+                textView.setTextColor(Color.BLUE);
+                snackbar.show();
+            }
+
+        });
         recyclerView.setNestedScrollingEnabled(false);
 
+
     }
-    /*@Override
-    public void onResume() {
-        super.onResume();
-        setUpRecycleView();
-    }*/
+
 
     private List<VideoItemObject> getAllVideoList(){
         List<VideoItemObject> list=new ArrayList<>();
@@ -112,15 +115,14 @@ public class VideoFragment extends Fragment implements IViewpagerCommunicator {
         return list;
     }
 
-    @Override
+   /* @Override
     public void viewPagerCommunicate(View view, int position) {
-        // The onClick implementation of the RecyclerView item click
-        final VideoItemObject allBerthCameraBean = list.get(position);
+        VideoItemObject allBerthCameraBean = list.get(position);
         Log.i("OnItemClicked"," Berth Name -  "+allBerthCameraBean.getMusicName());
         Snackbar snackbar = Snackbar.make(view, allBerthCameraBean.getMusicName(), Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(Color.RED);
         snackbar.show();
-    }
+    }*/
 }

@@ -10,13 +10,17 @@ import android.widget.TextView;
 
 import com.example.navigationtab.R;
 import com.example.navigationtab.Utils.ImageItemObject;
+import com.example.navigationtab.Utils.RecyclerViewOnItemClickListener;
+import com.example.navigationtab.Utils.VideoItemObject;
 
 import java.util.List;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.MyViewHolder> {
+
+    private onItemClick onItemClick;
     private List<ImageItemObject> list;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -37,9 +41,15 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.MyVi
 
     @Override
     public void onBindViewHolder(ImageItemAdapter.MyViewHolder holder, int position) {
-        ImageItemObject imageItemObject=list.get(position);
+        final ImageItemObject imageItemObject=list.get(position);
         holder.image.setImageResource(imageItemObject.getImage());
         holder.name.setText(imageItemObject.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.onImageItemClick(imageItemObject);
+            }
+        });
 
     }
 
@@ -55,5 +65,12 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.MyVi
             image=(ImageView)itemView.findViewById(R.id.screen_shot);
             name=(TextView)itemView.findViewById(R.id.music_name);
         }
+    }
+
+    public void SetOnItemClickListener(onItemClick recyclerViewOnItemClickListener) {
+        this.onItemClick=recyclerViewOnItemClickListener;
+    }
+    public interface onItemClick{
+        public void onImageItemClick(ImageItemObject imageItemObject);
     }
 }

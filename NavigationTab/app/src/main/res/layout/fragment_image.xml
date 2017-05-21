@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/button_llv"
             android:clipToPadding="false"
-            android:background="@color/background_color"
+            android:background="@color/divider_color"
             android:paddingTop="0dp" />
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>

@@ -9,15 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.navigationtab.R;
+import com.example.navigationtab.Utils.ImageItemObject;
 import com.example.navigationtab.Utils.MileStoneItemObject;
 
 import java.util.List;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public class MileStoneItemAdapter extends RecyclerView.Adapter<MileStoneItemAdapter.MyViewHolder> {
 
+    private onItemClick onItemClick;
     private List<MileStoneItemObject> list;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -39,9 +41,15 @@ public class MileStoneItemAdapter extends RecyclerView.Adapter<MileStoneItemAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        MileStoneItemObject mileStoneItemObject=list.get(position);
+        final MileStoneItemObject mileStoneItemObject=list.get(position);
         holder.imageView.setImageResource(mileStoneItemObject.getImage());
         holder.name.setText(mileStoneItemObject.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.onImageItemClick(mileStoneItemObject);
+            }
+        });
 
     }
 
@@ -60,5 +68,11 @@ public class MileStoneItemAdapter extends RecyclerView.Adapter<MileStoneItemAdap
             name=(TextView)itemView.findViewById(R.id.music_namem);
         }
 
+    }
+    public void SetOnItemClickListener(onItemClick recyclerViewOnItemClickListener) {
+        this.onItemClick=recyclerViewOnItemClickListener;
+    }
+    public interface onItemClick{
+        public void onImageItemClick(MileStoneItemObject imageItemObject);
     }
 }

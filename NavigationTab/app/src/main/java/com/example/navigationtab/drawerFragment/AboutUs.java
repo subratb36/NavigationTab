@@ -13,7 +13,7 @@ import com.example.navigationtab.R;
 import com.example.navigationtab.Utils.IFragmentCommunicator;
 
 /**
- * Created by subratkumar on 20/5/17.
+ * Created by subratkumar on 21-05-2017.
  */
 public class AboutUs extends Fragment {
     private AppCompatButton home;
