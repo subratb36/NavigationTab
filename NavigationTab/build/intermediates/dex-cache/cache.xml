@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="G:\Androidstudio_workspace\Git\NavigationTab\library\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9bbd886d7f51294635b60ac94361689e45eb7f2f">
+        <dex dex="G:\Androidstudio_workspace\Git\NavigationTab\app\build\intermediates\pre-dexed\debug\classes_b600a47490fa3617f9c0d88baea423ea9ab14e42.jar" />
+    </item>
+
+</items>
